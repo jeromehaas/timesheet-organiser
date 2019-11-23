@@ -1,0 +1,200 @@
+/*---------------------------------------------------------------------
+ELL ELEMENTS
+----------------------------------------------------------------------*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: roboto, sans-serif;
+}
+
+/*---------------------------------------------------------------------
+PARTIALS
+----------------------------------------------------------------------*/
+
+.pagewrapper {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+
+}
+
+.content-page {
+    width: 100%;
+    background-color: #1E1E1E;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    margin-left: 350px;
+}
+
+.sidebar {
+    width: 350px;
+    background-color: #323232;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.25);
+    z-index: 5;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.card {
+    width: 600px;
+    min-height: 400px;
+    padding: 30px;
+    background-color: #323232;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 3.5px;
+
+
+
+}
+
+.card p {
+    color: #F4F4F9;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 25px;
+    text-align: center;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+}
+
+form input{
+    border-radius: 3.5px;
+    outline: none;
+    box-shadow: none;
+    border: none;
+
+    width: 100%;
+    height: 30px;
+
+    margin-bottom: 15px;
+    padding: 4px 15px;
+
+    font-style: normal;
+    font-weight: 300;
+
+    background-color: #F4F4F9;
+}
+
+/*---------------------------------------------------------------------
+BUTTONS AND LINKS
+----------------------------------------------------------------------*/
+
+.button {
+    box-shadow: 0px 0.5px 1.5px rgba(0, 0, 0, 0.2), inset 0px 1px 0px rgba(255, 255, 255, 0.06), inset 0px 0.5px 0px rgba(255, 255, 255, 0.25);
+    color: #F4F4F9;
+    width: 200px;
+    height: 30px;
+    padding: 4px 15px;
+    border: none;
+    outline: none;
+    border-radius: 3.5px;
+    box-sizing: border-box;
+    text-align: center;
+    font-style: normal;
+    font-weight: 300;
+    text-decoration: none;
+}
+
+.button-blue {
+    background: linear-gradient(180deg, #1768E5 0%, #145CCC 100%);
+}
+
+.button-blue:hover {
+    background: linear-gradient(180deg, #145CCC 0%, #145CCC 100%);
+}
+
+.button-darkgrey {
+    background: linear-gradient(180deg, #373737 0%, #1E1E1E 100%);
+}
+
+.button-darkgrey:hover {
+    background: linear-gradient(180deg, #1E1E1E 0%, #1E1E1E 100%);
+}
+
+.sidebar-bottom {
+    position: fixed;
+    width: calc(350px - (2*30px));
+    bottom: 30px;
+    left: 30px;
+    margin: 0 auto;
+
+}
+
+a {
+
+}
+
+.blue-link {
+    color: #1661D6;
+    text-decoration: none;
+    font-size: 10px;
+}
+
+/*---------------------------------------------------------------------
+ICONS
+----------------------------------------------------------------------*/
+
+.icon-small {
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+}
+
+.icon-medium {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: transparent;
+    background-image: url("../media/icons/icon_delete.png");
+    background-size: contain;
+    border: none;
+    outline: none;
+    transition: all 0.1s ease-in-out;
+}
+
+.delete-icon:hover {
+    transform: scale(1.1);
+}
+
+.placeholder-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: transparent;
+    background-image: url("../media/icons/icon_placeholder.png");
+    background-size: contain;
+    border: none;
+    outline: none;
+}
+
