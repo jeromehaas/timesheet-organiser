@@ -1,42 +1,127 @@
-<!doctype html>
-<html lang="en">
+<?php include('php/functions/session_start.php'); ?>
+<?php include('php/functions/database_connection.php'); ?>
+<?php include('php/functions/helper_functions.php'); ?>
+<?php include('php/functions/clear_message.php'); ?>
+<?php include('partials/head.php'); ?>
 
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------->
-<!-- HEAD -->
+<!-- USER LOGIN SCRIPT -->
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------->
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="description" content="A timetracker tool for the 20th century">
-  <meta name="author" content="Jerome Haas">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/central.css">
-  <meta name="theme-color" content="#fafafa">
-</head>
+
+<?php
+
+set_message("");
+
+if (isset($_POST['login-submit-button'])) {
+
+    $error_array = array();
+
+    $username = htmlentities($_POST['username']);
+    $password = htmlentities($_POST['password']);
+
+    if (empty($username)) {
+        array_push($error_array, "EMAIL_EMPTY");
+    }
+
+    if(empty($password)) {
+        array_push($error_array, "PASSWORD_EMPTY");
+    }
+
+    if (!empty($error_array)) {
+        for ($i = 0; $i < sizeof($error_array); $i++) {
+            echo $error_array[$i] . "<br>";
+        }
+   } else {
+
+            $check_login = mysqli_query($con, "SELECT password, username FROM user_table WHERE username = '" .  $username . "' AND active = 1 ");
+            $check_login_rows = mysqli_num_rows($check_login);
+
+            if ($check_login_rows == 1) {
+
+                $row = mysqli_fetch_array($check_login);
+                $db_password = $row['password'];
+
+                // echo $db_password;
+
+                if (password_verify($password, $db_password)) {
+
+                    // echo "password verification successfull" . "<br>";
+
+                    $_SESSION['username'] = $username;
+
+                    setcookie('username', $username, time() + 86400 );
+
+                    header("Location: http://localhost:8888/timesheet_control/pages/dashboard.php");
+
+                } else {
+
+                set_message("
+                    <li>
+                      <img src='media/icons/icon_error.png' class='icon-small' alt='icon error'>
+                      <p>Password could not be verified</p>
+                    </li>
+                ");
+
+                }
+
+                set_message("
+                    <li>
+                      <img src='media/icons/icon_error.png' class='icon-small' alt='icon error'>
+                      <p>Password is not correct</p>
+                    </li>
+                ");
+
+            } else {
+
+                set_message("
+                    <li>
+                      <img src='media/icons/icon_error.png' class='icon-small' alt='icon error'>
+                      <p>User not found</p>
+                    </li>
+                ");
+
+            }
+
+   }
+
+
+
+
+
+}
+
+?>
 
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------->
-<!-- BODY START -->
+<!-- PAGE CONTENT -->
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------->
-<body>
 
 <div id="login-page" class="pagewrapper">
 
 
+
   <div class="content-page">
+
+  <?php include('php/functions/database_connection_status_report.php'); ?>
+
     <div class="card">
       <h1><img src="media/logo/timesheet_organiser_temporary_logo.svg" alt="Logo" class="logo"></h1>
-      <form action="#">
-        <input type="text" name="username" placeholder="E-Mail">
+      <form action="index.php" method="post">
+        <input type="text" name="username" placeholder="Username">
         <input type="password" name="password"placeholder="Password">
-        <input type="submit" class="button button-blue" value="Login">
+        <input type="submit" class="button button-blue" name="login-submit-button" value="Login">
         <div class="links-box">
-          <a href="register.php" class="blue-link">Register</a>
-          <a href="#" class="blue-link">Forgot password?</a>
+          <a href="pages/register.php" class="blue-link">Register</a>
+          <a href="pages/forgot_password.php" class="blue-link">Forgot password?</a>
         </div>
       </form>
     </div>
   </div>
   <div id="register-error-note">
+
+    <?php display_message(); ?>
+
+    <!--
     <li>
       <img src="media/icons/icon_error.png" class="icon-small" alt="">
       <p>Username already exist</p>
@@ -45,29 +130,13 @@
       <img src="media/icons/icon_error.png" class="icon-small" alt="">
       <p>Passwords dont match</p>
     </li>
+    -->
+
   </div>
 
 </div>
 
 
 
-
-  <!-------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <!-- SCRIPTS SECTION -->
-  <!-------------------------------------------------------------------------------------------------------------------------------------------------------->
-  <script src="js/vendor/modernizr-3.7.1.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
-
-</body>
-<!-------------------------------------------------------------------------------------------------------------------------------------------------------->
-<!-- BODY END -->
-<!-------------------------------------------------------------------------------------------------------------------------------------------------------->
-
-
-</html>
+  <?php include('partials/scripts_import.php'); ?>
+  <?php include('partials/footer.php'); ?>

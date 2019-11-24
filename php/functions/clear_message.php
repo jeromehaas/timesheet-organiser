@@ -1,0 +1,5 @@
+<?php
+
+set_message("");
+
+?>
